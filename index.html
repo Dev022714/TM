@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Michaella!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Fredoka One', cursive, sans-serif;
+            overflow: hidden;
+            user-select: none;
+            background-color: #120826;
+            color: #ffffff;
+        }
+
+        /* Smooth View Transitions */
+        .page {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+
+        .page-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
+
+        /* Cartoon Bouncy Button Styling */
+        .btn-cartoon {
+            background: linear-gradient(135deg, #c084fc 0%, #9333ea 100%);
+            border: 4px solid #ffffff;
+            box-shadow: 0 6px 0 #581c87, 0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.15s ease;
+        }
+
+        .btn-cartoon:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 9px 0 #581c87, 0 15px 25px rgba(168, 85, 247, 0.5);
+            background: linear-gradient(135deg, #d8b4fe 0%, #a855f7 100%);
+        }
+
+        .btn-cartoon:active {
+            transform: translateY(3px) scale(0.98);
+            box-shadow: 0 3px 0 #581c87, 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Canvas Overlay for Fireworks */
+        #fireworksCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        /* Backgrounds with robust mobile scaling */
+        .bg-page1 {
+            background-image: url('Titabg.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .bg-page2 {
+            background-image: url('TitaAd.jpeg');
+            background-size: cover;
+            background-position: center top; /* Pinned to top so HBD text is always visible */
+            background-repeat: no-repeat;
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 2s infinite ease-in-out;
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float-slow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen relative bg-slate-950 overflow-hidden">
+
+    <div id="page1" class="page bg-page1 flex flex-col items-center justify-center z-30 p-3 sm:p-4">
+        <div class="absolute inset-0 bg-black/35 backdrop-blur-[2px]"></div>
+
+        <div class="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
+            <span class="absolute top-6 left-6 text-2xl sm:text-4xl animate-float" style="animation-delay: 0s;">🔮</span>
+            <span class="absolute top-1/5 right-8 text-3xl sm:text-5xl animate-float" style="animation-delay: 1s;">💜</span>
+            <span class="absolute bottom-12 left-10 text-2xl sm:text-4xl animate-float" style="animation-delay: 2s;">👾</span>
+            <span class="absolute bottom-10 right-10 text-3xl sm:text-5xl animate-float" style="animation-delay: 1.5s;">✨</span>
+        </div>
+
+        <div class="relative bg-purple-950/80 backdrop-blur-md border-2 sm:border-4 border-purple-400/70 p-4 sm:p-8 rounded-2xl sm:rounded-3xl max-w-xs sm:max-w-md w-full text-center shadow-2xl flex flex-col items-center gap-3 sm:gap-5 z-10 max-h-[90vh] overflow-y-auto">
+            
+            <div class="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-purple-600/40 border-2 sm:border-4 border-purple-300 flex items-center justify-center text-2xl sm:text-4xl shadow-inner animate-pulse-subtle">
+                🎁
+            </div>
+
+            <div class="space-y-1">
+                <span class="text-[9px] sm:text-xs font-bold uppercase tracking-widest text-purple-200 bg-purple-950/90 px-3 py-0.5 sm:py-1 rounded-full border border-purple-400/40">
+                    A Special Surprise
+                </span>
+                <h1 class="text-xl sm:text-3xl text-purple-100 font-extrabold tracking-wide mt-1">
+                    For Tita Michaella ✨
+                </h1>
+                <p class="text-[11px] sm:text-sm text-purple-200 font-sans font-medium opacity-90">
+                    Are you ready for your Adventure Time birthday surprise?
+                </p>
+            </div>
+
+            <!-- MAIN "Press me" BUTTON -->
+            <button id="pressMeBtn" class="btn-cartoon px-6 py-2.5 sm:py-3.5 rounded-xl text-lg sm:text-2xl font-extrabold text-white cursor-pointer tracking-wider animate-pulse-subtle w-full flex items-center justify-center gap-2">
+                <span>Press me</span>
+                <i class="fa-solid fa-wand-magic-sparkles text-yellow-300"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PAGE 2: CELEBRATION / FIREWORKS DISPLAY PAGE -->
+    <div id="page2" class="page page-hidden bg-page2 z-10 flex flex-col justify-end items-center p-2 sm:p-4">
+        
+        <!-- Fireworks Canvas for Emojis -->
+        <canvas id="fireworksCanvas"></canvas>
+
+        <!-- Interactive Controls Bottom Bar -->
+        <footer class="relative z-30 mb-2 sm:mb-3 flex flex-wrap justify-center items-center gap-2 max-w-md w-full px-1">
+            <!-- Launch Fireworks Cannon Button -->
+            <button id="cannonBtn" class="btn-cartoon px-3 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white cursor-pointer flex items-center gap-1.5 shadow-lg">
+                <span>Blast Cannon!</span> 🎆
+            </button>
+
+            <!-- Sound / Music Toggle Button -->
+            <button id="audioToggleBtn" class="bg-purple-950/90 hover:bg-purple-800 border border-purple-400 text-purple-100 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 cursor-pointer shadow-lg">
+                <i id="audioIcon" class="fa-solid fa-volume-high text-purple-300"></i>
+                <span id="audioText">Sound: ON</span>
+            </button>
+
+            <!-- Replay / Back Button -->
+            <button id="backBtn" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-500 text-slate-200 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 cursor-pointer shadow-lg">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>Start Over</span>
+            </button>
+        </footer>
+    </div>
+
+    <script>
+        // --- Web Audio API Synth Effects ---
+        class SoundFX {
+            constructor() {
+                this.ctx = null;
+                this.enabled = true;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioContext();
+                }
+            }
+
+            playPop() {
+                if (!this.enabled) return;
+                this.init();
+                
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300 + Math.random() * 300, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(700 + Math.random() * 200, this.ctx.currentTime + 0.08);
+
+                gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.08);
+            }
+
+            playCelebrationMelody() {
+                if (!this.enabled) return;
+                this.init();
+
+                const notes = [261.63, 329.63, 392.00, 523.25];
+                notes.forEach((freq, idx) => {
+                    setTimeout(() => {
+                        if (!this.enabled) return;
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+                        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.3);
+
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+
+                        osc.start();
+                        osc.stop(this.ctx.currentTime + 0.3);
+                    }, idx * 110);
+                });
+            }
+        }
+
+        const sound = new SoundFX();
+
+        // --- Optimized Purple Emoji Fireworks Particle System ---
+        const EMOJIS = ['💜', '🔮', '👾', '😈', '🦄', '🎆', '✨', '🎂', '💫'];
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const MAX_PARTICLES = 80;
+        let particles = [];
+        let autoCannonInterval = null;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, vx, vy, emoji, size) {
+                this.x = x;
+                this.y = y;
+                this.vx = vx;
+                this.vy = vy;
+                this.gravity = 0.12;
+                this.friction = 0.97;
+                this.emoji = emoji;
+                this.size = size || (Math.random() * 8 + 16);
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.vRot = (Math.random() - 0.5) * 0.08;
+            }
+
+            update() {
+                this.vx *= this.friction;
+                this.vy *= this.friction;
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+                this.rotation += this.vRot;
+            }
+
+            draw(context) {
+                context.save();
+                context.globalAlpha = Math.max(0, this.alpha);
+                context.translate(this.x, this.y);
+                context.rotate(this.rotation);
+                context.font = `${this.size}px sans-serif`;
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+                context.fillText(this.emoji, 0, 0);
+                context.restore();
+            }
+        }
+
+        function createExplosion(x, y, count = 12) {
+            sound.playPop();
+            if (particles.length + count > MAX_PARTICLES) {
+                particles.splice(0, (particles.length + count) - MAX_PARTICLES);
+            }
+
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 8 + 2;
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed - 2;
+                const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+                particles.push(new Particle(x, y, vx, vy, emoji));
+            }
+        }
+
+        function createCannonStream() {
+            sound.playPop();
+            const fromLeft = Math.random() > 0.5;
+            const startX = fromLeft ? canvas.width * 0.15 : canvas.width * 0.85;
+            const startY = canvas.height;
+
+            const count = 10;
+            if (particles.length + count > MAX_PARTICLES) {
+                particles.splice(0, (particles.length + count) - MAX_PARTICLES);
+            }
+
+            for (let i = 0; i < count; i++) {
+                const angle = fromLeft ? (-Math.PI / 3 - Math.random() * 0.3) : (-2 * Math.PI / 3 + Math.random() * 0.3);
+                const speed = Math.random() * 12 + 7;
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed;
+                const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+                particles.push(new Particle(startX, startY, vx, vy, emoji));
+            }
+        }
+
+        function animateLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                p.draw(ctx);
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animateLoop);
+        }
+        animateLoop();
+
+        // --- Navigation & Page Logic ---
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const pressMeBtn = document.getElementById('pressMeBtn');
+        const backBtn = document.getElementById('backBtn');
+        const cannonBtn = document.getElementById('cannonBtn');
+        const audioToggleBtn = document.getElementById('audioToggleBtn');
+        const audioIcon = document.getElementById('audioIcon');
+        const audioText = document.getElementById('audioText');
+
+        pressMeBtn.addEventListener('click', () => {
+            sound.playCelebrationMelody();
+            page1.classList.add('page-hidden');
+            page2.classList.remove('page-hidden');
+
+            setTimeout(() => {
+                createExplosion(canvas.width / 2, canvas.height / 3, 14);
+            }, 300);
+
+            if (autoCannonInterval) clearInterval(autoCannonInterval);
+            autoCannonInterval = setInterval(() => {
+                if (!page2.classList.contains('page-hidden')) {
+                    createCannonStream();
+                }
+            }, 4500);
+        });
+
+        backBtn.addEventListener('click', () => {
+            page2.classList.add('page-hidden');
+            page1.classList.remove('page-hidden');
+            if (autoCannonInterval) clearInterval(autoCannonInterval);
+            particles = [];
+        });
+
+        cannonBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            createCannonStream();
+        });
+
+        page2.addEventListener('click', (e) => {
+            if (e.target.closest('button')) return;
+            createExplosion(e.clientX, e.clientY, 10);
+        });
+
+        audioToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sound.enabled = !sound.enabled;
+            if (sound.enabled) {
+                audioIcon.className = "fa-solid fa-volume-high text-purple-300";
+                audioText.innerText = "Sound: ON";
+            } else {
+                audioIcon.className = "fa-solid fa-volume-xmark text-slate-400";
+                audioText.innerText = "Sound: OFF";
+            }
+        });
+    </script>
+</body>
+</html>
