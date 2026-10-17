@@ -65,7 +65,7 @@
             z-index: 20;
         }
 
-        /* Backgrounds with robust mobile scaling & top alignment */
+        /* Backgrounds with mobile phone optimizations */
         .bg-page1 {
             background-image: url('Titabg.jpeg');
             background-size: cover;
@@ -78,6 +78,15 @@
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
+        }
+
+        /* Phone Portrait Optimization */
+        @media (max-width: 640px) and (orientation: portrait) {
+            .bg-page1 {
+                background-size: contain;
+                background-position: center top;
+                background-color: #79d3fb;
+            }
         }
 
         @keyframes pulse-subtle {
