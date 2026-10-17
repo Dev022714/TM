@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Michaella!</title>
+    <title>Happy Birthday Tita Michaella!</title>
+    <!-- Tailwind CSS for modern layout utilities -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for cartoonish & playful vibe -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -62,18 +65,18 @@
             z-index: 20;
         }
 
-        /* Backgrounds with robust mobile scaling */
+        /* Backgrounds with robust mobile scaling & top alignment */
         .bg-page1 {
             background-image: url('Titabg.jpeg');
             background-size: cover;
-            background-position: center;
+            background-position: center top;
             background-repeat: no-repeat;
         }
 
         .bg-page2 {
             background-image: url('TitaAd.jpeg');
             background-size: cover;
-            background-position: center top; /* Pinned to top so HBD text is always visible */
+            background-position: center top;
             background-repeat: no-repeat;
         }
 
@@ -96,9 +99,12 @@
 </head>
 <body class="h-screen w-screen relative bg-slate-950 overflow-hidden">
 
+    <!-- PAGE 1: LANDING / START PAGE -->
     <div id="page1" class="page bg-page1 flex flex-col items-center justify-center z-30 p-3 sm:p-4">
+        <!-- Semi-transparent overlay to ensure clarity -->
         <div class="absolute inset-0 bg-black/35 backdrop-blur-[2px]"></div>
 
+        <!-- Floating Purple Emoji Accents -->
         <div class="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
             <span class="absolute top-6 left-6 text-2xl sm:text-4xl animate-float" style="animation-delay: 0s;">🔮</span>
             <span class="absolute top-1/5 right-8 text-3xl sm:text-5xl animate-float" style="animation-delay: 1s;">💜</span>
@@ -106,6 +112,7 @@
             <span class="absolute bottom-10 right-10 text-3xl sm:text-5xl animate-float" style="animation-delay: 1.5s;">✨</span>
         </div>
 
+        <!-- Greeting Card Box -->
         <div class="relative bg-purple-950/80 backdrop-blur-md border-2 sm:border-4 border-purple-400/70 p-4 sm:p-8 rounded-2xl sm:rounded-3xl max-w-xs sm:max-w-md w-full text-center shadow-2xl flex flex-col items-center gap-3 sm:gap-5 z-10 max-h-[90vh] overflow-y-auto">
             
             <div class="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-purple-600/40 border-2 sm:border-4 border-purple-300 flex items-center justify-center text-2xl sm:text-4xl shadow-inner animate-pulse-subtle">
@@ -216,7 +223,7 @@
                         gain.connect(this.ctx.destination);
 
                         osc.start();
-                        osc.stop(this.ctx.currentTime + 0.3);
+                        osc.stop(this.ctx.currentTime + 0.4);
                     }, idx * 110);
                 });
             }
